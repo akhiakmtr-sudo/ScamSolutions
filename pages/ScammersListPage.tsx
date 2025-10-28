@@ -1,5 +1,6 @@
-import React, { useState } from 'react';
-import { MOCK_CONSULTANCIES } from '../constants';
+import React, { useState, useEffect } from 'react';
+// import { API } from 'aws-amplify';
+// import { listConsultancys } from '../graphql/queries';
 import { Consultancy, ConsultancyStatus, Page } from '../types';
 import ConsultancyCard from '../components/ConsultancyCard';
 
@@ -10,12 +11,63 @@ interface ScammersListPageProps {
 
 const ScammersListPage: React.FC<ScammersListPageProps> = ({ onSelectConsultancy, onNavigate }) => {
   const [searchTerm, setSearchTerm] = useState('');
+  const [allScammers, setAllScammers] = useState<Consultancy[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
   
-  const scammers = MOCK_CONSULTANCIES.filter(
-    (c) => c.status === ConsultancyStatus.Scammer &&
-           c.submissionStatus === 'approved' &&
-           c.name.toLowerCase().includes(searchTerm.toLowerCase())
+  useEffect(() => {
+    const fetchScammers = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        // --- Backend Integration Placeholder ---
+        // const filter = {
+        //   status: { eq: ConsultancyStatus.Scammer },
+        //   submissionStatus: { eq: 'approved' }
+        // };
+        // const response = await API.graphql({ query: listConsultancys, variables: { filter } });
+        // setAllScammers(response.data.listConsultancys.items);
+        console.log("Fetching scammers...");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setAllScammers([]);
+      } catch (err) {
+        console.error("Error fetching scammers:", err);
+        setError("Failed to load scammers list. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchScammers();
+  }, []);
+
+  const filteredScammers = allScammers.filter(c => 
+    c.name.toLowerCase().includes(searchTerm.toLowerCase())
   );
+
+  const renderContent = () => {
+    if (isLoading) {
+      return <div className="text-center py-16 text-gray-500">Loading scammers list...</div>;
+    }
+    if (error) {
+      return <div className="text-center py-16 text-red-500">{error}</div>;
+    }
+    if (filteredScammers.length > 0) {
+      return (
+        <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+          {filteredScammers.map((consultancy) => (
+            <div key={consultancy.id} onClick={() => onSelectConsultancy(consultancy)} className="cursor-pointer">
+              <ConsultancyCard consultancy={consultancy} />
+            </div>
+          ))}
+        </div>
+      );
+    }
+    return (
+      <div className="text-center py-16 bg-gray-100/80 backdrop-blur-md rounded-lg mt-12">
+        <p className="text-gray-500">No scammers found matching your search.</p>
+      </div>
+    );
+  };
 
   return (
     <div className="py-16 sm:py-24">
@@ -40,20 +92,7 @@ const ScammersListPage: React.FC<ScammersListPageProps> = ({ onSelectConsultancy
             </div>
           </div>
         </div>
-
-        {scammers.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-            {scammers.map((consultancy) => (
-              <div key={consultancy.id} onClick={() => onSelectConsultancy(consultancy)} className="cursor-pointer">
-                <ConsultancyCard consultancy={consultancy} />
-              </div>
-            ))}
-          </div>
-        ) : (
-          <div className="text-center py-16 bg-gray-100/80 backdrop-blur-md rounded-lg mt-12">
-            <p className="text-gray-500">No scammers found matching your search.</p>
-          </div>
-        )}
+        {renderContent()}
       </div>
     </div>
   );

@@ -1,7 +1,8 @@
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import Hero from '../components/Hero';
 import ForCompaniesForm from '../components/ForCompaniesForm';
-import { MOCK_CONSULTANCIES } from '../constants';
+// import { API } from 'aws-amplify';
+// import { listConsultancys } from '../graphql/queries';
 import { Consultancy, ConsultancyStatus, Page } from '../types';
 import { ShieldCheckIcon } from '../components/icons/ShieldCheckIcon';
 import { ShieldExclamationIcon } from '../components/icons/ShieldExclamationIcon';
@@ -20,10 +21,35 @@ interface HomePageProps {
 }
 
 const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, onRequestAuthentication, isAuthenticated, currentPage }) => {
-  const recentListings = MOCK_CONSULTANCIES
-    .filter(c => c.submissionStatus === 'approved')
-    .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
-    .slice(0, 10);
+  const [recentListings, setRecentListings] = useState<Consultancy[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const fetchRecentListings = async () => {
+      setIsLoading(true);
+      try {
+        // --- Backend Integration Placeholder ---
+        // const filter = { submissionStatus: { eq: 'approved' } };
+        // const response = await API.graphql({ 
+        //   query: listConsultancys, 
+        //   variables: { filter: filter, limit: 10, sortDirection: 'DESC' } // Assuming a 'createdAt' field for sorting
+        // });
+        // setRecentListings(response.data.listConsultancys.items);
+        
+        // Simulating API call for UI development
+        console.log("Fetching recent listings...");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setRecentListings([]); // Set to empty to show the "No listings" case
+
+      } catch (error) {
+        console.error("Error fetching recent listings:", error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    fetchRecentListings();
+  }, []);
 
   return (
     <div>
@@ -56,32 +82,40 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-gray-100 mb-6 text-center">Recently Reported & Listed</h2>
             <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-xl border border-gray-200">
-              <ul className="divide-y divide-gray-200">
-                {recentListings.map(item => (
-                  <li key={item.id} className="py-4 flex items-center justify-between flex-wrap gap-4">
-                    <a href="#" onClick={(e) => { e.preventDefault(); onSelectConsultancy(item); }} className="font-semibold text-gray-700 hover:text-red-600">{item.name}</a>
-                    {item.status === ConsultancyStatus.Scammer ? (
-                       <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
-                         <ShieldExclamationIcon className="w-4 h-4 mr-1.5" />
-                         SCAM
-                       </span>
-                    ) : (
-                       <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
-                         <ShieldCheckIcon className="w-4 h-4 mr-1.5" />
-                         TRUSTED
-                       </span>
-                    )}
-                  </li>
-                ))}
-              </ul>
-              <div className="text-center mt-6">
-                <button
-                  onClick={() => onNavigate('All Reports')}
-                  className="text-red-600 font-semibold hover:text-red-700 transition-colors"
-                >
-                  See More &rarr;
-                </button>
-              </div>
+              {isLoading ? (
+                <div className="text-center py-8 text-gray-500">Loading...</div>
+              ) : recentListings.length > 0 ? (
+                <>
+                  <ul className="divide-y divide-gray-200">
+                    {recentListings.map(item => (
+                      <li key={item.id} className="py-4 flex items-center justify-between flex-wrap gap-4">
+                        <a href="#" onClick={(e) => { e.preventDefault(); onSelectConsultancy(item); }} className="font-semibold text-gray-700 hover:text-red-600">{item.name}</a>
+                        {item.status === ConsultancyStatus.Scammer ? (
+                           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-red-100 text-red-800">
+                             <ShieldExclamationIcon className="w-4 h-4 mr-1.5" />
+                             SCAM
+                           </span>
+                        ) : (
+                           <span className="inline-flex items-center px-3 py-1 rounded-full text-sm font-medium bg-green-100 text-green-800">
+                             <ShieldCheckIcon className="w-4 h-4 mr-1.5" />
+                             TRUSTED
+                           </span>
+                        )}
+                      </li>
+                    ))}
+                  </ul>
+                   <div className="text-center mt-6">
+                    <button
+                      onClick={() => onNavigate('All Reports')}
+                      className="text-red-600 font-semibold hover:text-red-700 transition-colors"
+                    >
+                      See More &rarr;
+                    </button>
+                  </div>
+                </>
+              ) : (
+                <p className="text-center py-8 text-gray-500">No recent listings found.</p>
+              )}
             </div>
           </section>
         </div>

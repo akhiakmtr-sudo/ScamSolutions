@@ -1,5 +1,6 @@
-import React, { useState, useRef } from 'react';
-import { MOCK_CONSULTANCIES } from '../constants';
+import React, { useState, useEffect, useRef } from 'react';
+// import { API } from 'aws-amplify';
+// import { listConsultancys } from '../graphql/queries';
 import { Consultancy, Page, ConsultancyStatus } from '../types';
 import ConsultancyCard from '../components/ConsultancyCard';
 import ForCompaniesForm from '../components/ForCompaniesForm';
@@ -15,15 +16,39 @@ interface AllReportsPageProps {
 const AllReportsPage: React.FC<AllReportsPageProps> = ({ onSelectConsultancy, onNavigate, onRequestAuthentication, isAuthenticated, currentPage }) => {
   const [searchTerm, setSearchTerm] = useState('');
   const [filter, setFilter] = useState<'all' | 'scammer' | 'trusted'>('all');
+  const [allReports, setAllReports] = useState<Consultancy[]>([]);
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
+  
   const companiesFormRef = useRef<HTMLDivElement>(null);
+
+  useEffect(() => {
+    const fetchAllReports = async () => {
+      setIsLoading(true);
+      setError(null);
+      try {
+        // --- Backend Integration Placeholder ---
+        // const filter = { submissionStatus: { eq: 'approved' } };
+        // const response = await API.graphql({ query: listConsultancys, variables: { filter } });
+        // setAllReports(response.data.listConsultancys.items);
+        console.log("Fetching all reports...");
+        await new Promise(resolve => setTimeout(resolve, 1000));
+        setAllReports([]);
+      } catch (err) {
+        console.error("Error fetching all reports:", err);
+        setError("Failed to load reports. Please try again later.");
+      } finally {
+        setIsLoading(false);
+      }
+    };
+    fetchAllReports();
+  }, []);
 
   const handleReportFalseAllegationClick = () => {
     companiesFormRef.current?.scrollIntoView({ behavior: 'smooth' });
   };
 
-  const allApprovedReports = MOCK_CONSULTANCIES.filter(c => c.submissionStatus === 'approved');
-
-  const filteredReports = allApprovedReports.filter(
+  const filteredReports = allReports.filter(
     (c) => {
       if (filter === 'scammer' && c.status !== ConsultancyStatus.Scammer) return false;
       if (filter === 'trusted' && c.status !== ConsultancyStatus.Trusted) return false;
@@ -38,6 +63,31 @@ const AllReportsPage: React.FC<AllReportsPageProps> = ({ onSelectConsultancy, on
       return 'bg-gray-800 text-white border-gray-800';
     }
     return 'bg-white text-gray-700 hover:bg-gray-100 border-gray-300';
+  };
+  
+  const renderContent = () => {
+    if (isLoading) {
+        return <div className="text-center py-16 text-gray-500">Loading reports...</div>;
+    }
+    if (error) {
+        return <div className="text-center py-16 text-red-500">{error}</div>;
+    }
+    if (filteredReports.length > 0) {
+        return (
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
+              {filteredReports.map((consultancy) => (
+                <div key={consultancy.id} onClick={() => onSelectConsultancy(consultancy)} className="cursor-pointer">
+                  <ConsultancyCard consultancy={consultancy} />
+                </div>
+              ))}
+            </div>
+        );
+    }
+    return (
+        <div className="text-center py-16 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg mt-12">
+            <p className="text-gray-500">No reports found matching your search and filter criteria.</p>
+        </div>
+    );
   };
 
   return (
@@ -84,38 +134,25 @@ const AllReportsPage: React.FC<AllReportsPageProps> = ({ onSelectConsultancy, on
                     onClick={() => setFilter('all')}
                     className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('all')}`}
                   >
-                    All ({allApprovedReports.length})
+                    All ({allReports.length})
                   </button>
                   <button
                     onClick={() => setFilter('scammer')}
                     className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('scammer')}`}
                   >
-                    Scammers ({allApprovedReports.filter(c => c.status === ConsultancyStatus.Scammer).length})
+                    Scammers ({allReports.filter(c => c.status === ConsultancyStatus.Scammer).length})
                   </button>
                   <button
                     onClick={() => setFilter('trusted')}
                     className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('trusted')}`}
                   >
-                    Trusted ({allApprovedReports.filter(c => c.status === ConsultancyStatus.Trusted).length})
+                    Trusted ({allReports.filter(c => c.status === ConsultancyStatus.Trusted).length})
                   </button>
                 </div>
               </div>
             </div>
           </div>
-
-          {filteredReports.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
-              {filteredReports.map((consultancy) => (
-                <div key={consultancy.id} onClick={() => onSelectConsultancy(consultancy)} className="cursor-pointer">
-                  <ConsultancyCard consultancy={consultancy} />
-                </div>
-              ))}
-            </div>
-          ) : (
-            <div className="text-center py-16 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg mt-12">
-              <p className="text-gray-500">No reports found matching your search and filter criteria.</p>
-            </div>
-          )}
+          {renderContent()}
         </div>
       </div>
       <div ref={companiesFormRef} className="py-16">

@@ -1,4 +1,6 @@
 import React, { useState, useRef } from 'react';
+// import { API } from 'aws-amplify';
+// import { createConsultancy } from '../graphql/mutations';
 import { ConsultancyStatus, Page } from '../types';
 import { InstagramIcon } from '../components/icons/InstagramIcon';
 import { FacebookIcon } from '../components/icons/FacebookIcon';
@@ -46,6 +48,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
   const [isTrueInfo, setIsTrueInfo] = useState(false);
   const [acceptTerms, setAcceptTerms] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
+  const [error, setError] = useState<string | null>(null);
   const [submitted, setSubmitted] = useState(false);
   const fileInputRef = useRef<HTMLInputElement>(null);
 
@@ -60,16 +63,50 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
     }
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isTrueInfo || !acceptTerms) {
+        setError("You must agree to the terms to submit.");
+        return;
+    }
     setIsLoading(true);
-    console.log({ ...formData, proofs });
+    setError(null);
     
-    // Simulate API call
-    setTimeout(() => {
-        setIsLoading(false);
+    // In a real app, you would upload files to S3 here and get the URLs.
+    // For now, we'll just log the file names.
+    const proofUrls = proofs.map(p => `s3-placeholder/${p.name}`);
+
+    const input = {
+        name: formData.companyName,
+        status: formData.classification,
+        story: formData.description,
+        address: formData.address,
+        contactNumbers: formData.contactNumbers.split(',').map(s => s.trim()),
+        email: formData.email,
+        website: formData.website,
+        submittedBy: formData.publicUsername,
+        submitterFullName: formData.fullName,
+        submitterEmail: formData.userEmail,
+        submissionStatus: 'pending',
+        proofUrl: proofUrls[0], // Assuming one proof for now
+        // date will be set on the backend
+    };
+    
+    try {
+        // --- Backend Integration Placeholder ---
+        // await API.graphql({ query: createConsultancy, variables: { input: input } });
+
+        console.log('Submitting to backend:', input);
+        // Simulate API call
+        await new Promise(resolve => setTimeout(resolve, 2000));
         setSubmitted(true);
-    }, 2000);
+
+    } catch (err) {
+        console.error("Error submitting experience:", err);
+        setError("There was an error submitting your report. Please try again.");
+    } finally {
+        setIsLoading(false);
+    }
   };
   
   if (submitted) {
@@ -81,6 +118,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
                     Your submission will be published after Admin validation.
                 </p>
                 <p className="mt-2 text-gray-500">Thank you for sharing your experience.</p>
+                <button onClick={onFormSubmit} className="mt-6 bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700">Back to Home</button>
             </div>
         </div>
     )
@@ -125,9 +163,9 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <InputField name="companyName" label="Company / Consultancy Full Name" placeholder="e.g., Global Dream Careers" icon={<IdentificationIcon className="w-5 h-5"/>} required />
                 <InputField name="address" label="Address" placeholder="Full address if known" icon={<GlobeAltIcon className="w-5 h-5"/>} required />
-                <InputField name="contactNumbers" label="Contact Numbers" placeholder="+1-123-456-7890" icon={<PhoneIcon className="w-5 h-5"/>} required />
+                <InputField name="contactNumbers" label="Contact Numbers (comma-separated)" placeholder="+1-123-456-7890" icon={<PhoneIcon className="w-5 h-5"/>} required />
                 <InputField name="email" label="Email ID" placeholder="contact@example.com" type="email" icon={<AtSymbolIcon className="w-5 h-5"/>} required />
-                <InputField name="website" label="Website" placeholder="https://example.com" type="url" icon={<GlobeAltIcon className="w-5 h-5"/>} required />
+                <InputField name="website" label="Website" placeholder="https://example.com" type="url" icon={<GlobeAltIcon className="w-5 h-5"/>} />
               </div>
                <div className="mt-6">
                   <h3 className="text-lg font-semibold text-gray-700 mb-4">Social Media Usernames (Optional)</h3>
@@ -244,6 +282,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
 
              {/* Section 6: Submission */}
              <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
+                {error && <p className="text-red-500 text-sm text-center mb-4">{error}</p>}
                 <div className="p-4 border border-gray-200 bg-gray-50/50 rounded-md text-sm text-gray-500 mb-6">
                     <strong>Legal Disclaimer:</strong> You are solely responsible for the content you submit. By submitting, you grant Global Scam Alerts a license to display this content. Ensure that your submission does not violate any laws or third-party rights. We reserve the right to remove any content at our discretion.
                 </div>

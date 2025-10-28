@@ -1,8 +1,9 @@
 import React, { useState } from 'react';
+import { Auth } from 'aws-amplify';
 import { AtSymbolIcon } from '../components/icons/AtSymbolIcon';
+import { LockClosedIcon } from '../components/icons/LockClosedIcon';
 import { GoogleIcon } from '../components/icons/GoogleIcon';
-import { MOCK_USERS } from '../constants';
-import { User, Page } from '../types';
+import { type User, type Page } from '../types';
 
 interface LoginPageProps {
     onLoginSuccess: (user: User) => void;
@@ -18,55 +19,50 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigate }) => 
     const [forgotPassword, setForgotPassword] = useState(false);
     const [resetSent, setResetSent] = useState(false);
 
-    const handleSubmit = (e: React.FormEvent) => {
+    const handleSubmit = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
         
-        // Simulate API call
-        setTimeout(() => {
+        try {
             if (isLoginView) {
-                const user = MOCK_USERS.find(u => u.email === email && u.password === password);
-                if (user) {
-                    onLoginSuccess(user);
-                } else {
-                    setError('Invalid email or password.');
-                }
+                const user = await Auth.signIn(email, password);
+                onLoginSuccess(user);
             } else {
-                // Sign up logic
-                 if (MOCK_USERS.some(u => u.email === email)) {
-                     setError('An account with this email already exists.');
-                 } else {
-                    const newUser: User = { id: Date.now(), email, password, role: 'user' };
-                    MOCK_USERS.push(newUser); // In real app, this would be an API call
-                    onLoginSuccess(newUser);
-                 }
+                const { user } = await Auth.signUp({
+                    username: email,
+                    password,
+                    attributes: { email }
+                });
+                // After sign up, you might want to redirect to a confirmation page
+                // or automatically sign them in. For simplicity, we'll sign them in.
+                const cognitoUser = await Auth.signIn(email, password);
+                onLoginSuccess(cognitoUser);
             }
-
+        } catch (err: any) {
+            setError(err.message || 'An unexpected error occurred.');
+        } finally {
             setIsLoading(false);
-        }, 1000);
+        }
     };
 
-    const handlePasswordReset = (e: React.FormEvent) => {
+    const handlePasswordReset = async (e: React.FormEvent) => {
         e.preventDefault();
         setIsLoading(true);
         setError('');
-        setTimeout(() => {
-            console.log(`Password reset for ${email}`);
-            setIsLoading(false);
+        try {
+            await Auth.forgotPassword(email);
             setResetSent(true);
-        }, 1000);
+        } catch (err: any) {
+            setError(err.message);
+        } finally {
+            setIsLoading(false);
+        }
     };
     
     const handleGoogleSignIn = () => {
-        setIsLoading(true);
-        setTimeout(() => {
-            console.log('Signing in with Google...');
-            // Simulate finding or creating a user
-            const googleUser: User = { id: Date.now(), email: 'google.user@example.com', password: '', role: 'user' };
-            setIsLoading(false);
-            onLoginSuccess(googleUser);
-        }, 1000);
+        // This will redirect the user to the Google sign-in page
+        Auth.federatedSignIn({ provider: 'Google' as any });
     }
     
     const renderForgotPassword = () => (
@@ -82,6 +78,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigate }) => 
                 </div>
             ) : (
                 <form onSubmit={handlePasswordReset} className="space-y-4">
+                    {error && <p className="text-red-500 text-sm text-center">{error}</p>}
                     <input type="email" value={email} onChange={e => setEmail(e.target.value)} placeholder="Email address" required className="block w-full px-4 py-3 bg-gray-50 border border-gray-300 rounded-md text-gray-900 focus:ring-red-500 focus:border-red-500" />
                     <button type="submit" disabled={isLoading} className="w-full bg-red-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-red-700 transition-colors duration-300 disabled:bg-gray-400">
                         {isLoading ? 'Sending...' : 'Send Reset Link'}
@@ -132,6 +129,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigate }) => 
                             onChange={(e) => setEmail(e.target.value)}
                             placeholder="Email address"
                             required
+                            autoComplete="email"
                             className="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-md text-gray-900 focus:ring-red-500 focus:border-red-500"
                         />
                     </div>
@@ -140,9 +138,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigate }) => 
                     <label htmlFor="password"className="sr-only">Password</label>
                     <div className="relative">
                        <span className="absolute inset-y-0 left-0 flex items-center pl-3 text-gray-400">
-                            <svg xmlns="http://www.w3.org/2000/svg" className="h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
-                                <path fillRule="evenodd" d="M10 1a4.5 4.5 0 00-4.5 4.5V9H5a2 2 0 00-2 2v6a2 2 0 002 2h10a2 2 0 002-2v-6a2 2 0 00-2-2h-.5V5.5A4.5 4.5 0 0010 1zm3 8V5.5a3 3 0 10-6 0V9h6z" clipRule="evenodd" />
-                            </svg>
+                            <LockClosedIcon className="h-5 w-5" />
                         </span>
                         <input
                             type="password"
@@ -152,6 +148,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigate }) => 
                             onChange={(e) => setPassword(e.target.value)}
                             placeholder="Password"
                             required
+                            autoComplete={isLoginView ? 'current-password' : 'new-password'}
                             className="block w-full pl-10 pr-4 py-3 bg-gray-50 border border-gray-300 rounded-md text-gray-900 focus:ring-red-500 focus:border-red-500"
                         />
                     </div>

@@ -1,4 +1,3 @@
-
 export enum ConsultancyStatus {
   Scammer = "Scammer / Money Looter",
   Trusted = "Registered Trustworthy Company",
@@ -6,15 +5,17 @@ export enum ConsultancyStatus {
 
 export type SubmissionStatus = 'pending' | 'approved' | 'rejected';
 
+// Represents a Cognito User object after authentication
 export interface User {
-  id: number;
-  email: string;
-  password; // In a real app, this would be a hash
-  role: 'user' | 'admin';
+  username: string;
+  attributes: {
+    email: string;
+    // other attributes can be added here
+  };
 }
 
 export interface Consultancy {
-  id: number;
+  id: string;
   name: string;
   status: ConsultancyStatus;
   submissionStatus: SubmissionStatus;
@@ -37,7 +38,7 @@ export interface Consultancy {
 }
 
 export interface CompanyQuery {
-    id: number;
+    id: string;
     companyName: string;
     companyEmail: string;
     firmType: string;
