@@ -11,6 +11,8 @@ import { IdentificationIcon } from '../components/icons/IdentificationIcon';
 import { UserIcon } from '../components/icons/UserIcon';
 import { DocumentTextIcon } from '../components/icons/DocumentTextIcon';
 import { CurrencyDollarIcon } from '../components/icons/CurrencyDollarIcon';
+import { ThreadsIcon } from '../components/icons/ThreadsIcon';
+import { IndeedIcon } from '../components/icons/IndeedIcon';
 
 interface ShareExperiencePageProps {
   onFormSubmit: () => void;
@@ -134,8 +136,8 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
                       <InputField name="social_facebook" label="Facebook" placeholder="@username" icon={<FacebookIcon className="w-5 h-5"/>}/>
                       <InputField name="social_youtube" label="YouTube" placeholder="@channel" icon={<YoutubeIcon className="w-5 h-5"/>}/>
                       <InputField name="social_linkedin" label="LinkedIn" placeholder="/company/name" icon={<LinkedinIcon className="w-5 h-5"/>}/>
-                      <InputField name="social_threads" label="Threads" placeholder="@username" icon={<AtSymbolIcon className="w-5 h-5"/>}/>
-                      <InputField name="social_indeed" label="Indeed" placeholder="Company Name" icon={<IdentificationIcon className="w-5 h-5"/>}/>
+                      <InputField name="social_threads" label="Threads" placeholder="@username" icon={<ThreadsIcon className="w-5 h-5"/>}/>
+                      <InputField name="social_indeed" label="Indeed" placeholder="Company Name" icon={<IndeedIcon className="w-5 h-5"/>}/>
                   </div>
               </div>
             </div>

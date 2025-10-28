@@ -1,5 +1,4 @@
 import React from 'react';
-import { ShieldExclamationIcon } from '../components/icons/ShieldExclamationIcon';
 import { Page } from '../types';
 
 interface AboutUsPageProps {
@@ -13,7 +12,7 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ onNavigate }) => {
         <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-md p-8 rounded-lg">
           <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to Home</button>
           <div className="text-center">
-           <ShieldExclamationIcon className="mx-auto h-16 w-16 text-red-500" />
+           <img src="https://i.postimg.cc/mr5PVsJv/Emblem-Logo-for-Global-Scam-Alert-20251028-103926-0000.png" alt="Global Scam Alerts Logo" className="mx-auto h-16 w-auto" />
             <h1 className="mt-4 text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
               Our Mission: Protecting Your Dreams
             </h1>

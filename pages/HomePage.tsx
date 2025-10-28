@@ -54,7 +54,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
 
         <div className="mt-16">
           <section className="mb-16">
-            <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Recently Reported & Listed</h2>
+            <h2 className="text-3xl font-bold text-gray-100 mb-6 text-center">Recently Reported & Listed</h2>
             <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-xl border border-gray-200">
               <ul className="divide-y divide-gray-200">
                 {recentListings.map(item => (
@@ -90,7 +90,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
       <div className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <section>
-              <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">How to Spot a Fake Consultancy</h2>
+              <h2 className="text-3xl font-bold text-gray-100 mb-8 text-center">How to Spot a Fake Consultancy</h2>
               <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 text-gray-600">
                 <div className="bg-white/80 backdrop-blur-md p-6 rounded-lg border border-gray-200">
                   <p className="mb-4">
@@ -116,12 +116,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
                 </div>
               </div>
               <div className="text-center mt-12">
-                  <p className="text-gray-500 mb-4">Still unsure? Contact us for guidance.</p>
+                  <p className="text-gray-400 mb-4">Still unsure? Contact us for guidance.</p>
                   <div className="flex justify-center items-center gap-6">
-                    <a href="https://wa.me/919746109569" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-green-500 transition-colors"><WhatsappIcon className="w-8 h-8"/></a>
-                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-pink-500 transition-colors"><InstagramIcon className="w-8 h-8"/></a>
-                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-500 transition-colors"><FacebookIcon className="w-8 h-8"/></a>
-                    <a href="mailto:info@globalscamalerts.com" className="text-gray-500 hover:text-red-500 transition-colors"><MailIcon className="w-8 h-8"/></a>
+                    <a href="https://wa.me/919746109569" target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><WhatsappIcon className="w-8 h-8"/></a>
+                    <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><InstagramIcon className="w-8 h-8"/></a>
+                    <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><FacebookIcon className="w-8 h-8"/></a>
+                    <a href="mailto:info@globalscamalerts.com" className="text-gray-400 hover:text-red-500 transition-colors"><MailIcon className="w-8 h-8"/></a>
                   </div>
               </div>
             </section>

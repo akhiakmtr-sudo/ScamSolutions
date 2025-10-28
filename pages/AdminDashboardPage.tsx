@@ -1,7 +1,6 @@
 import React, { useState } from 'react';
 import { User, Consultancy, CompanyQuery, SubmissionStatus } from '../types';
 import { MOCK_CONSULTANCIES, MOCK_COMPANY_QUERIES } from '../constants';
-import { ShieldExclamationIcon } from '../components/icons/ShieldExclamationIcon';
 import AdminSubmissionDetailModal from '../components/AdminSubmissionDetailModal';
 import AdminCompanyQueryDetailModal from '../components/AdminCompanyQueryDetailModal';
 
@@ -52,9 +51,9 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
             <header className="bg-white/80 backdrop-blur-md shadow-sm">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
-                         <div className="flex items-center gap-2 text-gray-900">
-                            <ShieldExclamationIcon className="h-8 w-8 text-red-500" />
-                            <span className="font-bold text-xl">Global Scam Alerts - Admin Panel</span>
+                         <div className="flex items-center gap-2">
+                            <img src="https://i.postimg.cc/mr5PVsJv/Emblem-Logo-for-Global-Scam-Alert-20251028-103926-0000.png" alt="Global Scam Alerts Logo" className="h-10 w-auto" />
+                            <span className="font-bold text-xl text-gray-900">Global Scam Alerts - Admin Panel</span>
                         </div>
                         <div className="flex items-center gap-4">
                             <span className="text-sm">Welcome, {user.email}</span>

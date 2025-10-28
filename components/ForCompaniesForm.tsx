@@ -47,7 +47,7 @@ const ForCompaniesForm: React.FC<ForCompaniesFormProps> = ({ isAuthenticated, on
 
     return (
         <section>
-            <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">For Companies: Apply for Trusted Status or Report False Allegations</h2>
+            <h2 className="text-3xl font-bold text-gray-100 mb-8 text-center">For Companies: Apply for Trusted Status or Report False Allegations</h2>
             <div className="max-w-2xl mx-auto relative">
                 {!isAuthenticated && (
                     <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex flex-col items-center justify-center rounded-lg border border-gray-200 p-4">

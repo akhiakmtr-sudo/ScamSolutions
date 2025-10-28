@@ -74,17 +74,17 @@ const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ consultancy, onBa
                                 <DetailItem icon={<GlobeAltIcon className="w-5 h-5"/>} label="Website" value={consultancy.website} href={consultancy.website} />
                                 
                                 <div className="flex items-center gap-4 pt-4 border-t border-gray-200/50">
-                                    {consultancy.socialMedia?.instagram && <a href={`https://instagram.com/${consultancy.socialMedia.instagram}`} target="_blank" rel="noopener noreferrer"><InstagramIcon className="w-6 h-6 text-gray-400 hover:text-pink-500"/></a>}
-                                    {consultancy.socialMedia?.facebook && <a href={`https://facebook.com/${consultancy.socialMedia.facebook}`} target="_blank" rel="noopener noreferrer"><FacebookIcon className="w-6 h-6 text-gray-400 hover:text-blue-500"/></a>}
-                                    {consultancy.socialMedia?.linkedin && <a href={`https://linkedin.com/company/${consultancy.socialMedia.linkedin}`} target="_blank" rel="noopener noreferrer"><LinkedinIcon className="w-6 h-6 text-gray-400 hover:text-sky-400"/></a>}
-                                    {consultancy.socialMedia?.youtube && <a href={`https://youtube.com/${consultancy.socialMedia.youtube}`} target="_blank" rel="noopener noreferrer"><YoutubeIcon className="w-6 h-6 text-gray-400 hover:text-red-500"/></a>}
+                                    {consultancy.socialMedia?.instagram && <a href={`https://instagram.com/${consultancy.socialMedia.instagram}`} target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><InstagramIcon className="w-6 h-6"/></a>}
+                                    {consultancy.socialMedia?.facebook && <a href={`https://facebook.com/${consultancy.socialMedia.facebook}`} target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><FacebookIcon className="w-6 h-6"/></a>}
+                                    {consultancy.socialMedia?.linkedin && <a href={`https://linkedin.com/company/${consultancy.socialMedia.linkedin}`} target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><LinkedinIcon className="w-6 h-6"/></a>}
+                                    {consultancy.socialMedia?.youtube && <a href={`https://youtube.com/${consultancy.socialMedia.youtube}`} target="_blank" rel="noopener noreferrer" className="transition-transform hover:scale-110"><YoutubeIcon className="w-6 h-6"/></a>}
                                 </div>
                              </div>
                         </div>
 
                         {/* Right Column: User Experiences */}
                         <div className="md:col-span-2">
-                             <h2 className="text-2xl font-bold text-gray-900 mb-6">User Reports (1 Report)</h2>
+                             <h2 className="text-2xl font-bold text-gray-100 mb-6">User Reports (1 Report)</h2>
                              <div className="bg-white/80 backdrop-blur-md p-6 rounded-lg border border-gray-200">
                                 <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200/50">
                                     <p className="font-bold text-gray-700">Submitted by: {consultancy.submittedBy}</p>

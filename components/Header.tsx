@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { NAV_LINKS } from '../constants';
 import { type Page } from '../types';
-import { ShieldExclamationIcon } from './icons/ShieldExclamationIcon';
 import { MenuIcon } from './icons/MenuIcon';
 import { XIcon } from './icons/XIcon';
 
@@ -70,9 +69,9 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
-            <a href="#" onClick={() => onNavigate('Home')} className="flex-shrink-0 flex items-center gap-2 text-gray-900">
-              <ShieldExclamationIcon className="h-8 w-8 text-red-500" />
-              <span className="font-bold text-xl">Global Scam Alerts</span>
+            <a href="#" onClick={() => onNavigate('Home')} className="flex-shrink-0 flex items-center gap-2">
+              <img src="https://i.postimg.cc/mr5PVsJv/Emblem-Logo-for-Global-Scam-Alert-20251028-103926-0000.png" alt="Global Scam Alerts Logo" className="h-10 w-auto" />
+              <span className="font-bold text-xl text-gray-900">Global Scam Alerts</span>
             </a>
           </div>
           <div className="hidden md:block">
