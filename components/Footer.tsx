@@ -24,9 +24,9 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                     <div className="text-center md:text-left">
                         <div className="flex justify-center md:justify-start items-center gap-2 mb-2">
                              <ShieldExclamationIcon className="h-6 w-6 text-red-500" />
-                             <span className="font-bold text-lg text-gray-900">VisaScamAlerts</span>
+                             <span className="font-bold text-lg text-gray-900">Global Scam Alerts</span>
                         </div>
-                        <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} VisaScamAlerts. All rights reserved.</p>
+                        <p className="text-sm text-gray-500">&copy; {new Date().getFullYear()} Global Scam Alerts. All rights reserved.</p>
                     </div>
                     <div className="text-center">
                         <p className="font-semibold text-gray-900 mb-2">Quick Links</p>
@@ -46,7 +46,7 @@ const Footer: React.FC<FooterProps> = ({ onNavigate }) => {
                         <a href="https://wa.me/919746109569" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-green-500 transition-colors"><WhatsappIcon className="w-6 h-6"/></a>
                         <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-pink-500 transition-colors"><InstagramIcon className="w-6 h-6"/></a>
                         <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-400 hover:text-blue-500 transition-colors"><FacebookIcon className="w-6 h-6"/></a>
-                        <a href="mailto:info@visascamalerts.com" className="text-gray-400 hover:text-red-500 transition-colors"><MailIcon className="w-6 h-6"/></a>
+                        <a href="mailto:info@globalscamalerts.com" className="text-gray-400 hover:text-red-500 transition-colors"><MailIcon className="w-6 h-6"/></a>
                     </div>
                 </div>
             </div>

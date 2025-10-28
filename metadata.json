@@ -1,5 +1,5 @@
 {
-  "name": "VisaScamAlerts",
+  "name": "Global Scam Alerts",
   "description": "A web application to prevent scams related to abroad job consultancies, fake employment visas, and visa fraud. Users can submit experiences, and search a database of 'Scammer' and 'Trusted' companies.",
   "requestFramePermissions": []
 }

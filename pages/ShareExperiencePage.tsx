@@ -63,12 +63,10 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
     setIsLoading(true);
     console.log({ ...formData, proofs });
     
+    // Simulate API call
     setTimeout(() => {
         setIsLoading(false);
         setSubmitted(true);
-        setTimeout(() => {
-            onFormSubmit();
-        }, 3000);
     }, 2000);
   };
   
@@ -76,11 +74,11 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
     return (
         <div className="py-16 sm:py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl">
-                <h1 className="text-4xl font-extrabold text-green-600">Successfully Applied!</h1>
+                <h1 className="text-4xl font-extrabold text-green-600">Successfully Submitted!</h1>
                 <p className="mt-4 text-lg text-gray-700">
-                    Thank you for your submission. We will verify and do the needful within 2 business days.
+                    Your submission will be published after Admin validation.
                 </p>
-                <p className="mt-4 text-gray-500">You will be redirected to the homepage shortly.</p>
+                <p className="mt-2 text-gray-500">Thank you for sharing your experience.</p>
             </div>
         </div>
     )
@@ -124,13 +122,13 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Company Details</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <InputField name="companyName" label="Company / Consultancy Full Name" placeholder="e.g., Global Dream Careers" icon={<IdentificationIcon className="w-5 h-5"/>} required />
-                <InputField name="address" label="Address" placeholder="Full address if known" icon={<GlobeAltIcon className="w-5 h-5"/>} />
-                <InputField name="contactNumbers" label="Contact Numbers" placeholder="+1-123-456-7890" icon={<PhoneIcon className="w-5 h-5"/>} />
-                <InputField name="email" label="Email ID" placeholder="contact@example.com" type="email" icon={<AtSymbolIcon className="w-5 h-5"/>} />
-                <InputField name="website" label="Website" placeholder="https://example.com" type="url" icon={<GlobeAltIcon className="w-5 h-5"/>} />
+                <InputField name="address" label="Address" placeholder="Full address if known" icon={<GlobeAltIcon className="w-5 h-5"/>} required />
+                <InputField name="contactNumbers" label="Contact Numbers" placeholder="+1-123-456-7890" icon={<PhoneIcon className="w-5 h-5"/>} required />
+                <InputField name="email" label="Email ID" placeholder="contact@example.com" type="email" icon={<AtSymbolIcon className="w-5 h-5"/>} required />
+                <InputField name="website" label="Website" placeholder="https://example.com" type="url" icon={<GlobeAltIcon className="w-5 h-5"/>} required />
               </div>
                <div className="mt-6">
-                  <h3 className="text-lg font-semibold text-gray-700 mb-4">Social Media Usernames</h3>
+                  <h3 className="text-lg font-semibold text-gray-700 mb-4">Social Media Usernames (Optional)</h3>
                   <div className="grid grid-cols-2 md:grid-cols-3 gap-4">
                       <InputField name="social_instagram" label="Instagram" placeholder="@username" icon={<InstagramIcon className="w-5 h-5"/>}/>
                       <InputField name="social_facebook" label="Facebook" placeholder="@username" icon={<FacebookIcon className="w-5 h-5"/>}/>
@@ -206,9 +204,9 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
                     >
                          <DocumentTextIcon className="mx-auto h-12 w-12 text-gray-400" />
                         <p className="mt-1 text-sm text-gray-500">
-                            <span className="font-semibold text-red-600">Click to upload</span> or drag and drop
+                            <span className="font-semibold text-red-600">Click to upload files</span> or drag and drop
                         </p>
-                        <p className="text-xs text-gray-400">Screenshots, documents, logos, etc.</p>
+                        <p className="text-xs text-gray-400">You can select multiple files.</p>
                         <input
                             type="file"
                             ref={fileInputRef}
@@ -245,7 +243,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
              {/* Section 6: Submission */}
              <div className="bg-white p-8 rounded-lg border border-gray-200">
                 <div className="p-4 border border-gray-200 bg-gray-50/50 rounded-md text-sm text-gray-500 mb-6">
-                    <strong>Legal Disclaimer:</strong> You are solely responsible for the content you submit. By submitting, you grant VisaScamAlerts a license to display this content. Ensure that your submission does not violate any laws or third-party rights. We reserve the right to remove any content at our discretion.
+                    <strong>Legal Disclaimer:</strong> You are solely responsible for the content you submit. By submitting, you grant Global Scam Alerts a license to display this content. Ensure that your submission does not violate any laws or third-party rights. We reserve the right to remove any content at our discretion.
                 </div>
                 <div className="space-y-4">
                      <label className="flex items-start gap-3 text-gray-700">

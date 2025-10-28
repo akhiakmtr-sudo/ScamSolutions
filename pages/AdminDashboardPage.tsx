@@ -54,7 +54,7 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
                     <div className="flex items-center justify-between h-16">
                          <div className="flex items-center gap-2 text-gray-900">
                             <ShieldExclamationIcon className="h-8 w-8 text-red-500" />
-                            <span className="font-bold text-xl">VisaScamAlerts - Admin Panel</span>
+                            <span className="font-bold text-xl">Global Scam Alerts - Admin Panel</span>
                         </div>
                         <div className="flex items-center gap-4">
                             <span className="text-sm">Welcome, {user.email}</span>

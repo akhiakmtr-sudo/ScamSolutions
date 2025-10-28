@@ -18,7 +18,7 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ onNavigate }) => {
               Our Mission: Protecting Your Dreams
             </h1>
             <p className="mt-6 text-xl text-gray-600">
-              VisaScamAlerts was born from a simple yet powerful idea: to create a safe, transparent community for individuals seeking opportunities abroad.
+              Global Scam Alerts was born from a simple yet powerful idea: to create a safe, transparent community for individuals seeking opportunities abroad.
             </p>
           </div>
           <div className="mt-16 text-left space-y-8 text-gray-600">

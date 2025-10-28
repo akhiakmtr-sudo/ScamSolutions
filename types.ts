@@ -47,4 +47,4 @@ export interface CompanyQuery {
 }
 
 
-export type Page = 'Home' | 'About Us' | 'Scammers List' | 'Trusted Firms' | 'I Need Help' | 'Share Experience' | 'All Reports';
+export type Page = 'Home' | 'About Us' | 'Scammers List' | 'Trusted Firms' | 'I Need Help' | 'Share Experience' | 'All Reports' | 'Login';

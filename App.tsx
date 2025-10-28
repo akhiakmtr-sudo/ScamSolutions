@@ -8,16 +8,15 @@ import TrustedFirmsPage from './pages/TrustedFirmsPage';
 import INeedHelpPage from './pages/INeedHelpPage';
 import ShareExperiencePage from './pages/ShareExperiencePage';
 import CompanyDetailPage from './pages/CompanyDetailPage';
-import AuthModal from './components/AuthModal';
 import AdminDashboardPage from './pages/AdminDashboardPage';
 import AllReportsPage from './pages/AllReportsPage';
+import LoginPage from './pages/LoginPage';
 import { type Page, type Consultancy, type User } from './types';
 
 const App: React.FC = () => {
   const [currentPage, setCurrentPage] = useState<Page>('Home');
   const [selectedConsultancy, setSelectedConsultancy] = useState<Consultancy | null>(null);
   const [currentUser, setCurrentUser] = useState<User | null>(null);
-  const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const [postLoginNavigateTo, setPostLoginNavigateTo] = useState<Page | null>(null);
 
   const navigate = (page: Page) => {
@@ -37,10 +36,13 @@ const App: React.FC = () => {
 
   const handleLoginSuccess = (user: User) => {
     setCurrentUser(user);
-    setIsAuthModalOpen(false);
-    if (user.role === 'user' && postLoginNavigateTo) {
-        navigate(postLoginNavigateTo);
-        setPostLoginNavigateTo(null);
+    if (user.role === 'user') {
+      if (postLoginNavigateTo) {
+          navigate(postLoginNavigateTo);
+          setPostLoginNavigateTo(null);
+      } else {
+          navigate('Home');
+      }
     }
   };
 
@@ -54,7 +56,7 @@ const App: React.FC = () => {
           navigate(targetPage);
       } else {
           setPostLoginNavigateTo(targetPage);
-          setIsAuthModalOpen(true);
+          navigate('Login');
       }
   };
 
@@ -69,7 +71,7 @@ const App: React.FC = () => {
 
     switch (currentPage) {
       case 'Home':
-        return <HomePage onNavigate={navigate} onSelectConsultancy={handleSelectConsultancy} onRequestAuthentication={requestAuthentication} />;
+        return <HomePage onNavigate={navigate} onSelectConsultancy={handleSelectConsultancy} onRequestAuthentication={requestAuthentication} isAuthenticated={!!currentUser} currentPage={currentPage} />;
       case 'About Us':
         return <AboutUsPage onNavigate={navigate} />;
       case 'Scammers List':
@@ -81,9 +83,11 @@ const App: React.FC = () => {
       case 'Share Experience':
         return <ShareExperiencePage onFormSubmit={() => navigate('Home')} onNavigate={navigate} />;
       case 'All Reports':
-        return <AllReportsPage onSelectConsultancy={handleSelectConsultancy} onNavigate={navigate} />;
+        return <AllReportsPage onSelectConsultancy={handleSelectConsultancy} onNavigate={navigate} onRequestAuthentication={requestAuthentication} isAuthenticated={!!currentUser} currentPage={currentPage} />;
+      case 'Login':
+        return <LoginPage onLoginSuccess={handleLoginSuccess} onNavigate={navigate} />;
       default:
-        return <HomePage onNavigate={navigate} onSelectConsultancy={handleSelectConsultancy} onRequestAuthentication={requestAuthentication} />;
+        return <HomePage onNavigate={navigate} onSelectConsultancy={handleSelectConsultancy} onRequestAuthentication={requestAuthentication} isAuthenticated={!!currentUser} currentPage={currentPage} />;
     }
   };
 
@@ -94,13 +98,12 @@ const App: React.FC = () => {
         currentPage={currentPage}
         isAuthenticated={!!currentUser}
         onLogout={handleLogout}
-        onLoginClick={() => setIsAuthModalOpen(true)}
+        onLoginClick={() => navigate('Login')}
       />
       <main className="flex-grow">
         {renderPage()}
       </main>
       <Footer onNavigate={navigate} />
-      {isAuthModalOpen && <AuthModal onClose={() => setIsAuthModalOpen(false)} onLoginSuccess={handleLoginSuccess} />}
     </div>
   );
 };

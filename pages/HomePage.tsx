@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React from 'react';
 import Hero from '../components/Hero';
 import ForCompaniesForm from '../components/ForCompaniesForm';
 import { MOCK_CONSULTANCIES } from '../constants';
@@ -15,12 +15,11 @@ interface HomePageProps {
   onNavigate: (page: Page) => void;
   onSelectConsultancy: (consultancy: Consultancy) => void;
   onRequestAuthentication: (page: Page) => void;
+  isAuthenticated: boolean;
+  currentPage: Page;
 }
 
-const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, onRequestAuthentication }) => {
-  const [searchTerm, setSearchTerm] = useState('');
-  const [filter, setFilter] = useState('All');
-
+const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, onRequestAuthentication, isAuthenticated, currentPage }) => {
   const recentListings = MOCK_CONSULTANCIES
     .filter(c => c.submissionStatus === 'approved')
     .sort((a, b) => new Date(b.date).getTime() - new Date(a.date).getTime())
@@ -29,45 +28,29 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
   return (
     <div>
       <Hero />
-      <div className="container mx-auto px-4 sm:px-6 lg:px-8 -mt-24 relative z-10">
+      <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16">
         <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
           <div className="max-w-xl mx-auto text-center mb-8">
-            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Check a Consultancy</h1>
-            <p className="text-gray-600 mt-2">Search our database before you commit.</p>
+            <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Stay Informed. Stay Safe.</h1>
+            <p className="text-gray-600 mt-2">Browse our community-driven database of visa consultancies before you proceed.</p>
           </div>
-          <div className="flex flex-col md:flex-row gap-4 max-w-2xl mx-auto">
-            <input
-              type="text"
-              value={searchTerm}
-              onChange={(e) => setSearchTerm(e.target.value)}
-              placeholder="Search for a company or consultancy..."
-              className="flex-grow w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all"
-            />
-            <select
-              value={filter}
-              onChange={(e) => setFilter(e.target.value)}
-              className="px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none"
+          <div className="flex flex-col sm:flex-row gap-4 justify-center max-w-2xl mx-auto">
+            <button 
+              onClick={() => onNavigate('Scammers List')} 
+              className="bg-red-100 text-red-700 font-bold py-3 px-6 rounded-lg hover:bg-red-200 transition-colors duration-300 flex items-center justify-center gap-2"
             >
-              <option value="All">All</option>
-              <option value="Scammers">Scammers</option>
-              <option value="Trusted Firms">Trusted Firms</option>
-            </select>
-            <button className="bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors duration-300">
-              Search
+              <ShieldExclamationIcon className="w-5 h-5" />
+              View Scammers List
+            </button>
+            <button 
+              onClick={() => onNavigate('Trusted Firms')} 
+              className="bg-green-100 text-green-700 font-bold py-3 px-6 rounded-lg hover:bg-green-200 transition-colors duration-300 flex items-center justify-center gap-2"
+            >
+              <ShieldCheckIcon className="w-5 h-5" />
+              View Trusted Firms
             </button>
           </div>
         </div>
-
-        <div className="text-center mt-12">
-            <h2 className="text-2xl sm:text-3xl font-bold text-gray-900 mb-4">Help Others By Sharing Your Experience</h2>
-            <button
-              onClick={() => onRequestAuthentication('Share Experience')}
-              className="bg-red-600 text-white font-bold py-3 px-8 rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-lg text-lg"
-            >
-              Report a Scammer or Vouch for a Trusted Firm
-            </button>
-        </div>
-
 
         <div className="mt-16">
           <section className="mb-16">
@@ -138,7 +121,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
                     <a href="https://wa.me/919746109569" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-green-500 transition-colors"><WhatsappIcon className="w-8 h-8"/></a>
                     <a href="https://instagram.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-pink-500 transition-colors"><InstagramIcon className="w-8 h-8"/></a>
                     <a href="https://facebook.com" target="_blank" rel="noopener noreferrer" className="text-gray-500 hover:text-blue-500 transition-colors"><FacebookIcon className="w-8 h-8"/></a>
-                    <a href="mailto:info@visascamalerts.com" className="text-gray-500 hover:text-red-500 transition-colors"><MailIcon className="w-8 h-8"/></a>
+                    <a href="mailto:info@globalscamalerts.com" className="text-gray-500 hover:text-red-500 transition-colors"><MailIcon className="w-8 h-8"/></a>
                   </div>
               </div>
             </section>
@@ -146,7 +129,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
       </div>
       <div className="bg-white py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-            <ForCompaniesForm />
+            <ForCompaniesForm isAuthenticated={isAuthenticated} onRequestAuthentication={onRequestAuthentication} currentPage={currentPage} />
         </div>
       </div>
     </div>

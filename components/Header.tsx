@@ -33,15 +33,21 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
         : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
     }`;
     
-  const authButtonClasses = "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 bg-red-600 text-white hover:bg-red-700";
-  const mobileAuthButtonClasses = `block w-full text-left ${authButtonClasses}`;
+  const primaryButtonClasses = "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 bg-red-600 text-white hover:bg-red-700";
+  const secondaryButtonClasses = "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 text-gray-600 hover:bg-gray-100";
+  
+  const mobilePrimaryButtonClasses = `block w-full text-left ${primaryButtonClasses}`;
+  const mobileSecondaryButtonClasses = `block w-full text-left ${secondaryButtonClasses}`;
 
   const AuthButtons = () => (
      <>
       {isAuthenticated ? (
-        <button onClick={onLogout} className={authButtonClasses}>Logout</button>
+        <button onClick={onLogout} className={primaryButtonClasses}>Logout</button>
       ) : (
-        <button onClick={onLoginClick} className={authButtonClasses}>Login / Sign Up</button>
+        <div className="flex items-center space-x-1">
+            <button onClick={onLoginClick} className={secondaryButtonClasses}>Login</button>
+            <button onClick={onLoginClick} className={primaryButtonClasses}>Sign Up</button>
+        </div>
       )}
     </>
   );
@@ -49,9 +55,12 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
   const MobileAuthButtons = () => (
      <>
       {isAuthenticated ? (
-        <button onClick={() => { onLogout(); setIsMenuOpen(false); }} className={mobileAuthButtonClasses}>Logout</button>
+        <button onClick={() => { onLogout(); setIsMenuOpen(false); }} className={mobilePrimaryButtonClasses}>Logout</button>
       ) : (
-        <button onClick={() => { onLoginClick(); setIsMenuOpen(false); }} className={mobileAuthButtonClasses}>Login / Sign Up</button>
+        <div className="space-y-2">
+           <button onClick={() => { onLoginClick(); setIsMenuOpen(false); }} className={mobileSecondaryButtonClasses}>Login</button>
+           <button onClick={() => { onLoginClick(); setIsMenuOpen(false); }} className={mobilePrimaryButtonClasses}>Sign Up</button>
+        </div>
       )}
     </>
   );
@@ -63,7 +72,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
           <div className="flex items-center">
             <a href="#" onClick={() => onNavigate('Home')} className="flex-shrink-0 flex items-center gap-2 text-gray-900">
               <ShieldExclamationIcon className="h-8 w-8 text-red-500" />
-              <span className="font-bold text-xl">VisaScamAlerts</span>
+              <span className="font-bold text-xl">Global Scam Alerts</span>
             </a>
           </div>
           <div className="hidden md:block">

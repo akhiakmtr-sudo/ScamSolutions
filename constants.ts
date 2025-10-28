@@ -11,7 +11,7 @@ export const NAV_LINKS: { name: string; href: string }[] = [
 
 export const MOCK_USERS: User[] = [
     { id: 1, email: 'user@example.com', password: 'password123', role: 'user' },
-    { id: 2, email: 'admin@visascamalerts.dev', password: 'admin123', role: 'admin'},
+    { id: 2, email: 'admin@globalscamalerts.dev', password: 'admin123', role: 'admin'},
 ];
 
 export const MOCK_COMPANY_QUERIES: CompanyQuery[] = [

@@ -54,8 +54,8 @@ const INeedHelpPage: React.FC<INeedHelpPageProps> = ({ onNavigate }) => {
           <div className="mt-16 text-center p-8 bg-gray-50 rounded-lg border border-gray-200">
              <h2 className="text-2xl font-bold text-gray-900">Contact Us</h2>
              <p className="mt-4 text-gray-600">If you have technical issues with the website or want to report a submission, please contact us at:</p>
-             <a href="mailto:support@visascamalerts.dev" className="mt-4 inline-block text-lg font-medium text-red-600 hover:text-red-500">
-                support@visascamalerts.dev
+             <a href="mailto:support@globalscamalerts.dev" className="mt-4 inline-block text-lg font-medium text-red-600 hover:text-red-500">
+                support@globalscamalerts.dev
              </a>
              <p className="mt-2 text-sm text-gray-500">(Please note: We are not a legal body and cannot offer legal advice or recover lost funds.)</p>
           </div>
