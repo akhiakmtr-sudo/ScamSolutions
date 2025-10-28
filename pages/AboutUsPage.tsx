@@ -8,9 +8,9 @@ interface AboutUsPageProps {
 
 const AboutUsPage: React.FC<AboutUsPageProps> = ({ onNavigate }) => {
   return (
-    <div className="bg-white py-16 sm:py-24">
+    <div className="py-16 sm:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-        <div className="max-w-4xl mx-auto">
+        <div className="max-w-4xl mx-auto bg-white/80 backdrop-blur-md p-8 rounded-lg">
           <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to Home</button>
           <div className="text-center">
            <ShieldExclamationIcon className="mx-auto h-16 w-16 text-red-500" />
@@ -29,11 +29,11 @@ const AboutUsPage: React.FC<AboutUsPageProps> = ({ onNavigate }) => {
               We believe in the power of shared knowledge. Our platform is dedicated to two core objectives:
             </p>
             <div className="space-y-6">
-              <div className="p-6 bg-gray-50 rounded-lg border border-red-200">
+              <div className="p-6 bg-gray-50/80 backdrop-blur-md rounded-lg border border-red-200">
                 <h3 className="font-bold text-red-700 text-lg">Expose Scammers</h3>
                 <p className="mt-2">By providing a platform for users to anonymously share their negative experiences, complete with evidence, we aim to build a comprehensive, searchable database of fraudulent consultancies. This collective intelligence helps others avoid the same pitfalls.</p>
               </div>
-               <div className="p-6 bg-gray-50 rounded-lg border border-green-200">
+               <div className="p-6 bg-gray-50/80 backdrop-blur-md rounded-lg border border-green-200">
                 <h3 className="font-bold text-green-700 text-lg">Highlight Trustworthy Firms</h3>
                 <p className="mt-2">It's equally important to recognize the good players. We feature and verify registered, trustworthy companies that have a proven track record of success and ethical practices. When you find a firm on our 'Trusted' list, you can proceed with greater confidence.</p>
               </div>

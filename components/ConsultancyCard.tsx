@@ -11,11 +11,11 @@ const ConsultancyCard: React.FC<ConsultancyCardProps> = ({ consultancy }) => {
   const isScammer = consultancy.status === ConsultancyStatus.Scammer;
 
   const statusColor = isScammer ? 'text-red-700' : 'text-green-700';
-  const bgColor = isScammer ? 'bg-red-50 hover:bg-red-100' : 'bg-green-50 hover:bg-green-100';
+  const bgColor = isScammer ? 'bg-red-50/80 hover:bg-red-100/90' : 'bg-green-50/80 hover:bg-green-100/90';
   const borderColor = isScammer ? 'border-red-200' : 'border-green-200';
 
   return (
-    <div className={`border ${borderColor} rounded-lg p-6 flex flex-col h-full transition-all duration-300 ${bgColor}`}>
+    <div className={`border ${borderColor} rounded-lg p-6 flex flex-col h-full transition-all duration-300 ${bgColor} backdrop-blur-sm`}>
       <div className="flex items-start gap-4 mb-4">
         <div className={`flex-shrink-0 ${statusColor}`}>
           {isScammer ? <ShieldExclamationIcon className="w-8 h-8" /> : <ShieldCheckIcon className="w-8 h-8" />}

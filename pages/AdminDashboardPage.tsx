@@ -35,7 +35,7 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
         `px-4 py-2 text-sm font-medium rounded-t-lg transition-colors ${
             activeTab === tabName 
             ? 'text-red-600 border-b-2 border-red-600' 
-            : 'text-gray-500 hover:bg-gray-200'
+            : 'text-gray-500 hover:bg-gray-200/50'
         }`;
     
     const statusBadge = (status: SubmissionStatus) => {
@@ -48,8 +48,8 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
     };
 
     return (
-        <div className="min-h-screen bg-gray-100 text-gray-800">
-            <header className="bg-white shadow-sm">
+        <div className="min-h-screen text-gray-800">
+            <header className="bg-white/80 backdrop-blur-md shadow-sm">
                 <div className="container mx-auto px-4 sm:px-6 lg:px-8">
                     <div className="flex items-center justify-between h-16">
                          <div className="flex items-center gap-2 text-gray-900">
@@ -78,9 +78,9 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
 
                 <div className="mt-8">
                     {activeTab === 'submissions' && (
-                        <div className="bg-white rounded-lg shadow overflow-hidden">
+                        <div className="bg-white/80 backdrop-blur-md rounded-lg shadow overflow-hidden">
                             <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-gray-50/50">
                                     <tr>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
@@ -92,7 +92,7 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
                                     {pendingSubmissions.map(sub => (
-                                        <tr key={sub.id} className="hover:bg-gray-50">
+                                        <tr key={sub.id} className="hover:bg-gray-50/50">
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{sub.date}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{sub.name}</td>
                                             <td className={`px-6 py-4 whitespace-nowrap text-sm font-semibold ${sub.status === 'Scammer / Money Looter' ? 'text-red-600' : 'text-green-600'}`}>{sub.status}</td>
@@ -108,9 +108,9 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
                         </div>
                     )}
                      {activeTab === 'queries' && (
-                         <div className="bg-white rounded-lg shadow overflow-hidden">
+                         <div className="bg-white/80 backdrop-blur-md rounded-lg shadow overflow-hidden">
                             <table className="min-w-full divide-y divide-gray-200">
-                                <thead className="bg-gray-50">
+                                <thead className="bg-gray-50/50">
                                     <tr>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Date</th>
                                         <th className="px-6 py-3 text-left text-xs font-medium text-gray-500 uppercase tracking-wider">Company Name</th>
@@ -121,7 +121,7 @@ const AdminDashboardPage: React.FC<AdminDashboardPageProps> = ({ user, onLogout 
                                 </thead>
                                 <tbody className="divide-y divide-gray-200">
                                     {pendingQueries.map(q => (
-                                        <tr key={q.id} className="hover:bg-gray-50">
+                                        <tr key={q.id} className="hover:bg-gray-50/50">
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{q.date}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm font-medium text-gray-900">{q.companyName}</td>
                                             <td className="px-6 py-4 whitespace-nowrap text-sm text-gray-600">{q.companyEmail}</td>

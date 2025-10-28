@@ -197,7 +197,7 @@ const LoginPage: React.FC<LoginPageProps> = ({ onLoginSuccess, onNavigate }) => 
     return (
         <div className="py-16 sm:py-24">
             <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-                <div className="max-w-md mx-auto bg-white border border-gray-200 rounded-xl shadow-lg relative">
+                <div className="max-w-md mx-auto bg-white/80 backdrop-blur-md border border-gray-200 rounded-xl shadow-lg relative">
                     <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 absolute top-4 left-4 z-10 p-2">&larr; Back to Home</button>
                     {forgotPassword ? renderForgotPassword() : renderAuthForm()}
                 </div>

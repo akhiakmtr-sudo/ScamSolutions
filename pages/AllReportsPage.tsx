@@ -41,68 +41,70 @@ const AllReportsPage: React.FC<AllReportsPageProps> = ({ onSelectConsultancy, on
   };
 
   return (
-    <>
-      <div className="bg-gray-50 py-16 sm:py-24">
+    <div>
+      <div className="py-16 sm:py-24">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to Home</button>
-          <div className="max-w-4xl mx-auto text-center mb-12">
-            <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
-              All Reports
-            </h1>
-            <p className="mt-6 text-xl text-gray-600">
-              A complete list of all community-reported consultancies. Use the filters to narrow your search.
-            </p>
+          <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg">
+            <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to Home</button>
+            <div className="max-w-4xl mx-auto text-center mb-12">
+              <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">
+                All Reports
+              </h1>
+              <p className="mt-6 text-xl text-gray-600">
+                A complete list of all community-reported consultancies. Use the filters to narrow your search.
+              </p>
 
-            {/* Action Buttons */}
-            <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
-              <button
-                onClick={() => onRequestAuthentication('Share Experience')}
-                className="bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md"
-              >
-                Report My Experience
-              </button>
-              <button
-                onClick={handleReportFalseAllegationClick}
-                className="bg-gray-100 text-gray-700 font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors duration-300 border border-gray-300"
-              >
-                Report a False Allegation
-              </button>
-            </div>
+              {/* Action Buttons */}
+              <div className="mt-8 flex flex-col sm:flex-row gap-4 justify-center">
+                <button
+                  onClick={() => onRequestAuthentication('Share Experience')}
+                  className="bg-red-600 text-white font-bold py-3 px-6 rounded-lg hover:bg-red-700 transition-colors duration-300 shadow-md"
+                >
+                  Report My Experience
+                </button>
+                <button
+                  onClick={handleReportFalseAllegationClick}
+                  className="bg-gray-100 text-gray-700 font-bold py-3 px-6 rounded-lg hover:bg-gray-200 transition-colors duration-300 border border-gray-300"
+                >
+                  Report a False Allegation
+                </button>
+              </div>
 
-            {/* Search and Filter */}
-            <div className="mt-12 max-w-2xl mx-auto">
-              <input
-                type="text"
-                placeholder="Search by company name..."
-                value={searchTerm}
-                onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all mb-4"
-              />
-              <div className="flex justify-center gap-2 sm:gap-4">
-                <button
-                  onClick={() => setFilter('all')}
-                  className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('all')}`}
-                >
-                  All ({allApprovedReports.length})
-                </button>
-                <button
-                  onClick={() => setFilter('scammer')}
-                  className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('scammer')}`}
-                >
-                  Scammers ({allApprovedReports.filter(c => c.status === ConsultancyStatus.Scammer).length})
-                </button>
-                <button
-                  onClick={() => setFilter('trusted')}
-                  className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('trusted')}`}
-                >
-                  Trusted ({allApprovedReports.filter(c => c.status === ConsultancyStatus.Trusted).length})
-                </button>
+              {/* Search and Filter */}
+              <div className="mt-12 max-w-2xl mx-auto">
+                <input
+                  type="text"
+                  placeholder="Search by company name..."
+                  value={searchTerm}
+                  onChange={(e) => setSearchTerm(e.target.value)}
+                  className="w-full px-4 py-3 bg-white border border-gray-300 rounded-lg text-gray-900 focus:ring-2 focus:ring-red-500 focus:border-red-500 outline-none transition-all mb-4"
+                />
+                <div className="flex justify-center gap-2 sm:gap-4">
+                  <button
+                    onClick={() => setFilter('all')}
+                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('all')}`}
+                  >
+                    All ({allApprovedReports.length})
+                  </button>
+                  <button
+                    onClick={() => setFilter('scammer')}
+                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('scammer')}`}
+                  >
+                    Scammers ({allApprovedReports.filter(c => c.status === ConsultancyStatus.Scammer).length})
+                  </button>
+                  <button
+                    onClick={() => setFilter('trusted')}
+                    className={`px-4 py-2 text-sm font-semibold rounded-full transition-colors border ${getFilterButtonClasses('trusted')}`}
+                  >
+                    Trusted ({allApprovedReports.filter(c => c.status === ConsultancyStatus.Trusted).length})
+                  </button>
+                </div>
               </div>
             </div>
           </div>
 
           {filteredReports.length > 0 ? (
-            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+            <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
               {filteredReports.map((consultancy) => (
                 <div key={consultancy.id} onClick={() => onSelectConsultancy(consultancy)} className="cursor-pointer">
                   <ConsultancyCard consultancy={consultancy} />
@@ -110,18 +112,18 @@ const AllReportsPage: React.FC<AllReportsPageProps> = ({ onSelectConsultancy, on
               ))}
             </div>
           ) : (
-            <div className="text-center py-16 bg-white border border-gray-200 rounded-lg">
+            <div className="text-center py-16 bg-white/80 backdrop-blur-md border border-gray-200 rounded-lg mt-12">
               <p className="text-gray-500">No reports found matching your search and filter criteria.</p>
             </div>
           )}
         </div>
       </div>
-      <div ref={companiesFormRef} className="bg-white py-16">
+      <div ref={companiesFormRef} className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ForCompaniesForm isAuthenticated={isAuthenticated} onRequestAuthentication={onRequestAuthentication} currentPage={currentPage} />
         </div>
       </div>
-    </>
+    </div>
   );
 };
 

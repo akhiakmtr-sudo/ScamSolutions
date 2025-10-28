@@ -21,7 +21,7 @@ const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ consultancy, onBa
     const statusColor = isScammer ? 'red' : 'green';
 
     const AdminSuggestion = () => (
-        <div className={`p-4 rounded-lg border border-${statusColor}-200 bg-${statusColor}-50 mb-8`}>
+        <div className={`p-4 rounded-lg border border-${statusColor}-200 ${isScammer ? 'bg-red-50/80' : 'bg-green-50/80'} backdrop-blur-md mb-8`}>
             <p className={`font-bold text-${statusColor}-700`}>Our Suggestion</p>
             <p className="text-gray-600 text-sm mt-1">
                 {isScammer 
@@ -52,18 +52,20 @@ const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ consultancy, onBa
                 <div className="max-w-4xl mx-auto">
                     <button onClick={onBack} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to list</button>
                     
-                    <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
-                         <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">{consultancy.name}</h1>
-                         <div className={`text-center px-4 py-2 rounded-lg border-2 border-${statusColor}-500 bg-${statusColor}-500/10`}>
-                            <p className={`text-2xl font-bold text-${statusColor}-600`}>{statusText}</p>
-                         </div>
+                    <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg mb-8">
+                      <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4">
+                           <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">{consultancy.name}</h1>
+                           <div className={`text-center px-4 py-2 rounded-lg border-2 border-${statusColor}-500 bg-${statusColor}-500/10`}>
+                              <p className={`text-2xl font-bold text-${statusColor}-600`}>{statusText}</p>
+                           </div>
+                      </div>
                     </div>
                    
                     <AdminSuggestion />
 
                     <div className="grid md:grid-cols-3 gap-8">
                         {/* Left Column: Details */}
-                        <div className="md:col-span-1 bg-white p-6 rounded-lg border border-gray-200 h-fit">
+                        <div className="md:col-span-1 bg-white/80 backdrop-blur-md p-6 rounded-lg border border-gray-200 h-fit">
                              <h2 className="text-xl font-bold text-gray-900 mb-6">Company Details</h2>
                              <div className="space-y-4">
                                 <DetailItem icon={<GlobeAltIcon className="w-5 h-5"/>} label="Address" value={consultancy.address} />
@@ -83,7 +85,7 @@ const CompanyDetailPage: React.FC<CompanyDetailPageProps> = ({ consultancy, onBa
                         {/* Right Column: User Experiences */}
                         <div className="md:col-span-2">
                              <h2 className="text-2xl font-bold text-gray-900 mb-6">User Reports (1 Report)</h2>
-                             <div className="bg-white p-6 rounded-lg border border-gray-200">
+                             <div className="bg-white/80 backdrop-blur-md p-6 rounded-lg border border-gray-200">
                                 <div className="flex justify-between items-center mb-4 pb-4 border-b border-gray-200/50">
                                     <p className="font-bold text-gray-700">Submitted by: {consultancy.submittedBy}</p>
                                     <p className="text-sm text-gray-500">{consultancy.date}</p>

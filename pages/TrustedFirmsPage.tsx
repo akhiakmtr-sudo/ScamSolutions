@@ -20,6 +20,7 @@ const TrustedFirmsPage: React.FC<TrustedFirmsPageProps> = ({ onSelectConsultancy
   return (
     <div className="py-16 sm:py-24">
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
+        <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg">
         <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to Home</button>
         <div className="max-w-4xl mx-auto text-center mb-12">
           <h1 className="text-4xl font-extrabold tracking-tight text-green-600 sm:text-5xl">
@@ -38,9 +39,10 @@ const TrustedFirmsPage: React.FC<TrustedFirmsPageProps> = ({ onSelectConsultancy
             />
           </div>
         </div>
+        </div>
 
         {trustedFirms.length > 0 ? (
-          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8">
+          <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-8 mt-12">
             {trustedFirms.map((consultancy) => (
                <div key={consultancy.id} onClick={() => onSelectConsultancy(consultancy)} className="cursor-pointer">
                 <ConsultancyCard consultancy={consultancy} />
@@ -48,7 +50,7 @@ const TrustedFirmsPage: React.FC<TrustedFirmsPageProps> = ({ onSelectConsultancy
             ))}
           </div>
         ) : (
-          <div className="text-center py-16 bg-gray-100 rounded-lg">
+          <div className="text-center py-16 bg-gray-100/80 backdrop-blur-md rounded-lg mt-12">
             <p className="text-gray-500">No trusted firms found matching your search.</p>
           </div>
         )}

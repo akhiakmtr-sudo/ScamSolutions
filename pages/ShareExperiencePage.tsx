@@ -73,7 +73,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
   if (submitted) {
     return (
         <div className="py-16 sm:py-24">
-            <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl">
+            <div className="container mx-auto px-4 sm:px-6 lg:px-8 text-center max-w-2xl bg-white/80 backdrop-blur-md p-8 rounded-lg">
                 <h1 className="text-4xl font-extrabold text-green-600">Successfully Submitted!</h1>
                 <p className="mt-4 text-lg text-gray-700">
                     Your submission will be published after Admin validation.
@@ -110,7 +110,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
       <div className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="max-w-4xl mx-auto">
           <button onClick={() => onNavigate('Home')} className="text-sm text-red-600 hover:text-red-500 mb-6">&larr; Back to Home</button>
-          <div className="text-center mb-12">
+          <div className="text-center mb-12 bg-white/80 backdrop-blur-md p-8 rounded-lg">
             <h1 className="text-4xl font-extrabold tracking-tight text-gray-900 sm:text-5xl">Help Others By Sharing Your Experience</h1>
             <p className="mt-4 text-lg text-gray-600">Your story is a powerful tool. All submissions are reviewed by our team before publishing.</p>
           </div>
@@ -118,7 +118,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
           <form onSubmit={handleSubmit} className="space-y-10">
 
             {/* Section 1: Company Details */}
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
               <h2 className="text-2xl font-bold text-gray-900 mb-6">Company Details</h2>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <InputField name="companyName" label="Company / Consultancy Full Name" placeholder="e.g., Global Dream Careers" icon={<IdentificationIcon className="w-5 h-5"/>} required />
@@ -141,7 +141,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
             </div>
 
             {/* Section 2: Classification */}
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Classification</h2>
                 <div>
                     <label htmlFor="classification" className="block text-sm font-medium text-gray-700 mb-1">Select Status</label>
@@ -161,7 +161,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
             </div>
             
             {/* Section 3: Your Details */}
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Details (Secure & Anonymous)</h2>
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     <div>
@@ -181,7 +181,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
             </div>
             
             {/* Section 4: Your Experience & Proof */}
-            <div className="bg-white p-8 rounded-lg border border-gray-200">
+            <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Your Experience</h2>
                  <div>
                     <label htmlFor="description" className="block text-sm font-medium text-gray-700 mb-1">Describe your Experience with {formData.companyName || 'this company'}</label>
@@ -224,7 +224,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
             </div>
 
             {/* Section 5: Financial Fraud */}
-             <div className="bg-white p-8 rounded-lg border border-gray-200">
+             <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
                 <h2 className="text-2xl font-bold text-gray-900 mb-6">Financial Fraud</h2>
                  <div>
                     <label className="block text-sm font-medium text-gray-700 mb-2">Did you face any financial fraud by this firm?</label>
@@ -241,7 +241,7 @@ const ShareExperiencePage: React.FC<ShareExperiencePageProps> = ({ onFormSubmit,
             </div>
 
              {/* Section 6: Submission */}
-             <div className="bg-white p-8 rounded-lg border border-gray-200">
+             <div className="bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200">
                 <div className="p-4 border border-gray-200 bg-gray-50/50 rounded-md text-sm text-gray-500 mb-6">
                     <strong>Legal Disclaimer:</strong> You are solely responsible for the content you submit. By submitting, you grant Global Scam Alerts a license to display this content. Ensure that your submission does not violate any laws or third-party rights. We reserve the right to remove any content at our discretion.
                 </div>

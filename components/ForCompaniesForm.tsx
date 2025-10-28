@@ -32,7 +32,7 @@ const ForCompaniesForm: React.FC<ForCompaniesFormProps> = ({ isAuthenticated, on
 
     if (submitted) {
         return (
-            <div className="text-center max-w-2xl mx-auto bg-green-50 p-8 rounded-lg border border-green-200">
+            <div className="text-center max-w-2xl mx-auto bg-green-50/80 backdrop-blur-md p-8 rounded-lg border border-green-200">
                 <h2 className="text-2xl font-bold text-green-700">Query Submitted!</h2>
                 <p className="mt-4 text-gray-600">Thank you for contacting us. Our team will review your query and get back to you shortly.</p>
             </div>
@@ -50,7 +50,7 @@ const ForCompaniesForm: React.FC<ForCompaniesFormProps> = ({ isAuthenticated, on
             <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">For Companies: Apply for Trusted Status or Report False Allegations</h2>
             <div className="max-w-2xl mx-auto relative">
                 {!isAuthenticated && (
-                    <div className="absolute inset-0 bg-white/80 backdrop-blur-sm z-10 flex flex-col items-center justify-center rounded-lg border border-gray-200 p-4">
+                    <div className="absolute inset-0 bg-white/95 backdrop-blur-sm z-10 flex flex-col items-center justify-center rounded-lg border border-gray-200 p-4">
                         <p className="font-bold text-gray-800 text-lg mb-4 text-center">Please log in to submit a query.</p>
                         <button 
                             onClick={handleLoginClick}
@@ -60,7 +60,7 @@ const ForCompaniesForm: React.FC<ForCompaniesFormProps> = ({ isAuthenticated, on
                         </button>
                     </div>
                 )}
-                <form onSubmit={handleSubmit} className={`space-y-6 bg-white p-8 rounded-lg border border-gray-200 ${!isAuthenticated ? 'blur-sm' : ''}`}>
+                <form onSubmit={handleSubmit} className={`space-y-6 bg-white/80 backdrop-blur-md p-8 rounded-lg border border-gray-200 ${!isAuthenticated ? 'blur-sm' : ''}`}>
                     <fieldset disabled={!isAuthenticated} className="space-y-6">
                         <div>
                             <label htmlFor="companyName" className="block text-sm font-medium text-gray-700 mb-1">Company Name</label>

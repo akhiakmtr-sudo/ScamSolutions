@@ -30,11 +30,11 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
     `px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 ${
       currentPage === page
         ? 'bg-red-600 text-white'
-        : 'text-gray-600 hover:bg-gray-100 hover:text-gray-900'
+        : 'text-gray-600 hover:bg-gray-100/50 hover:text-gray-900'
     }`;
     
   const primaryButtonClasses = "px-4 py-2 rounded-md text-sm font-medium transition-colors duration-300 bg-red-600 text-white hover:bg-red-700";
-  const secondaryButtonClasses = "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 text-gray-600 hover:bg-gray-100";
+  const secondaryButtonClasses = "px-3 py-2 rounded-md text-sm font-medium transition-colors duration-300 text-gray-600 hover:bg-gray-100/50";
   
   const mobilePrimaryButtonClasses = `block w-full text-left ${primaryButtonClasses}`;
   const mobileSecondaryButtonClasses = `block w-full text-left ${secondaryButtonClasses}`;
@@ -66,7 +66,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
   );
 
   return (
-    <header className={`sticky top-0 z-50 transition-all duration-300 ${isScrolled ? 'bg-white/80 backdrop-blur-lg shadow-sm border-b border-gray-200' : 'bg-white'}`}>
+    <header className={`sticky top-0 z-50 transition-all duration-300 bg-white/80 backdrop-blur-lg ${isScrolled ? 'shadow-sm border-b border-gray-200' : 'border-b border-transparent'}`}>
       <nav className="container mx-auto px-4 sm:px-6 lg:px-8">
         <div className="flex items-center justify-between h-16">
           <div className="flex items-center">
@@ -97,7 +97,7 @@ const Header: React.FC<HeaderProps> = ({ onNavigate, currentPage, isAuthenticate
             <button
               onClick={() => setIsMenuOpen(!isMenuOpen)}
               type="button"
-              className="bg-gray-100 inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-200 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-red-500"
+              className="bg-gray-100/50 inline-flex items-center justify-center p-2 rounded-md text-gray-500 hover:text-gray-800 hover:bg-gray-200/50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-offset-gray-100 focus:ring-red-500"
               aria-controls="mobile-menu"
               aria-expanded="false"
             >

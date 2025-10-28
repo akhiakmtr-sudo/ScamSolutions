@@ -92,7 +92,7 @@ const App: React.FC = () => {
   };
 
   return (
-    <div className="min-h-screen bg-gray-50 text-gray-800 flex flex-col">
+    <div className="min-h-screen text-gray-800 flex flex-col">
       <Header 
         onNavigate={navigate} 
         currentPage={currentPage}

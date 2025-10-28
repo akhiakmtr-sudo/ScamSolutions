@@ -29,7 +29,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
     <div>
       <Hero />
       <div className="container mx-auto px-4 sm:px-6 lg:px-8 pt-16">
-        <div className="bg-white p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
+        <div className="bg-white/80 backdrop-blur-md p-6 sm:p-8 rounded-xl shadow-lg border border-gray-200">
           <div className="max-w-xl mx-auto text-center mb-8">
             <h1 className="text-3xl sm:text-4xl font-extrabold text-gray-900">Stay Informed. Stay Safe.</h1>
             <p className="text-gray-600 mt-2">Browse our community-driven database of visa consultancies before you proceed.</p>
@@ -55,7 +55,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
         <div className="mt-16">
           <section className="mb-16">
             <h2 className="text-3xl font-bold text-gray-900 mb-6 text-center">Recently Reported & Listed</h2>
-            <div className="bg-white p-4 sm:p-6 rounded-xl border border-gray-200">
+            <div className="bg-white/80 backdrop-blur-md p-4 sm:p-6 rounded-xl border border-gray-200">
               <ul className="divide-y divide-gray-200">
                 {recentListings.map(item => (
                   <li key={item.id} className="py-4 flex items-center justify-between flex-wrap gap-4">
@@ -87,12 +87,12 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
         </div>
       </div>
       
-      <div className="bg-gray-100 py-16">
+      <div className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <section>
               <h2 className="text-3xl font-bold text-gray-900 mb-8 text-center">How to Spot a Fake Consultancy</h2>
               <div className="max-w-4xl mx-auto grid md:grid-cols-2 gap-8 text-gray-600">
-                <div className="bg-white p-6 rounded-lg border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md p-6 rounded-lg border border-gray-200">
                   <p className="mb-4">
                     Scammers often create convincing schemes involving fake employment visas, money laundering, and even sexual exploitation under the guise of job offers. Being vigilant is your first line of defense.
                   </p>
@@ -104,7 +104,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
                     <li><strong>Vague Details:</strong> Lack of a physical office address or proper registration details.</li>
                   </ul>
                 </div>
-                <div className="bg-white p-6 rounded-lg border border-gray-200">
+                <div className="bg-white/80 backdrop-blur-md p-6 rounded-lg border border-gray-200">
                    <h3 className="font-bold text-lg text-gray-900 mb-4">Verification Steps:</h3>
                    <ol className="space-y-3 list-decimal list-inside text-gray-500">
                      <li>Verify the company's registration on official government websites.</li>
@@ -127,7 +127,7 @@ const HomePage: React.FC<HomePageProps> = ({ onNavigate, onSelectConsultancy, on
             </section>
         </div>
       </div>
-      <div className="bg-white py-16">
+      <div className="py-16">
         <div className="container mx-auto px-4 sm:px-6 lg:px-8">
             <ForCompaniesForm isAuthenticated={isAuthenticated} onRequestAuthentication={onRequestAuthentication} currentPage={currentPage} />
         </div>
